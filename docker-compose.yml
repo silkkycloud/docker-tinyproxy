@@ -1,0 +1,25 @@
+version: 3.8
+
+services:
+
+  proxy:
+    image: ghcr.io/silkkycloud/tinyproxy:latest
+    hostname: tinyproxy
+    networks:
+      - proxy_net
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - "node.labels.proxy == true"
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '0.05'
+          memory: 100M
+
+networks:
+  proxy_net:
+    external: true
